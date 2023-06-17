@@ -1,0 +1,15 @@
+.element__icon {
+    width: 22px;
+    height: 19px;
+    background-image: url(../../../images/element.svg);
+    background-repeat: no-repeat;
+    transition: opacity 0.6s;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.element__icon:hover {
+    opacity: 0.5;
+}

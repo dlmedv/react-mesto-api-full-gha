@@ -1,0 +1,10 @@
+.element {
+    width: 100%;
+    min-height: 361px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: #fff;
+    gap:25px;
+    position: relative;
+}

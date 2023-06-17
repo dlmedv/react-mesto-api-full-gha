@@ -1,0 +1,10 @@
+.element__group {
+    max-width: 246px;
+    max-height: 23px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 21px;
+    box-sizing: border-box;
+    overflow: visible;
+}

@@ -1,0 +1,10 @@
+.element__button-photo {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    appearance: none;
+    border-radius: none;
+    padding: 0;
+}

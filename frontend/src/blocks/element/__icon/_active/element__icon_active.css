@@ -1,0 +1,10 @@
+.element__icon_active {
+    width: 22px;
+    height: 19px;
+    background-image: url(../../../../images/Union.svg);
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}

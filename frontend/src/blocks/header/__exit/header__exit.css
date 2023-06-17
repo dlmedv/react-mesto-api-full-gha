@@ -1,0 +1,15 @@
+.header__exit {
+    margin: 0;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    outline: none;
+    background-color: transparent;
+    color: #fff;
+    padding: 0;
+}
+
+.header__exit:hover {
+    opacity: 0.6;
+}

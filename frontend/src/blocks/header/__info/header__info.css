@@ -1,0 +1,20 @@
+.header__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 221px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #fff;
+    column-gap: 24px;
+}
+
+@media screen and (max-width: 1279px) {
+    .header__info {
+        flex-direction: column;
+        row-gap: 18px;
+        column-gap: 0;
+        margin-right: 19px;
+    }
+}
