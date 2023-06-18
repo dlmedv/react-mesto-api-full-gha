@@ -1,4 +1,4 @@
-export const BASE_URL = "https://auth.nomoreparties.co"
+export const BASE_URL = "https://api.dlmedvmesto.nomoredomains.rocks"
 
 export const checkStatusRes = (res) => {
     if (res.ok) {
