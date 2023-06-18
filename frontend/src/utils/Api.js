@@ -14,23 +14,32 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`)
     }
 
-    getInitialCards() {
+    getInitialCards(token) {
         return fetch(`${this._url}/cards`, {
-            headers: this._headers
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    getUserInfo() {
+    getUserInfo(token) {
         return fetch(`${this._url}/users/me`, {
-            headers: this._headers
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    setInfoUser({ name, about }) {
+    setInfoUser({ name, about, jwt }) {
         return fetch(`${this._url}/users/me`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwt.token}`,
+            },
             method: 'PATCH',
             body: JSON.stringify({
                 name: name,
@@ -40,9 +49,12 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    createNewCard(item) {
+    createNewCard(item, jwt) {
         return fetch(`${this._url}/cards`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwt.token}`,
+            },
             method: 'POST',
             body: JSON.stringify({
                 name: item.name,
@@ -52,33 +64,45 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    deleteCard(cardId) {
+    deleteCard(cardId, jwt) {
         return fetch(`${this._url}/cards/${cardId}`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwt.token}`,
+            },
             method: 'DELETE',
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    setLikes(cardId) {
+    setLikes(cardId, jwt) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwt.token}`,
+            },
             method: 'PUT'
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    deleteLikes(cardId) {
+    deleteLikes(cardId, jwt) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwt.token}`,
+            },
             method: 'DELETE'
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    setUserAvatar(newAvatarLink) {
+    setUserAvatar(newAvatarLink, jwt) {
         return fetch(`${this._url}/users/me/avatar`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwt.token}`,
+            },
             method: 'PATCH',
             body: JSON.stringify({
                 avatar: newAvatarLink,
@@ -87,9 +111,12 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    changeLikeCardStatus(isLiked, cardId) {
+    changeLikeCardStatus(isLiked, cardId, jwt) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwt.token}`,
+            },
             method: isLiked ? 'DELETE' : 'PUT'
         })
             .then(res => this._checkStatusRes(res))
