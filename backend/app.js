@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const NotFound = require('./errors/NotFound');
@@ -10,8 +11,10 @@ const auth = require('./middlewares/auth');
 const errorMiddlewares = require('./middlewares/errorMiddlewares');
 const { validateSignIn, validateSignUp } = require('./middlewares/validations');
 
-const app = express();
 const { PORT = 3000 } = process.env;
+const app = express();
+app.use(cors());
+
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {});
 
 app.use(helmet());
