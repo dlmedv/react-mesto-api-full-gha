@@ -14,32 +14,32 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`)
     }
 
-    getInitialCards(token) {
+    getInitialCards() {
         return fetch(`${this._url}/cards`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            }
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    getUserInfo(token) {
+    getUserInfo() {
         return fetch(`${this._url}/users/me`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            }
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    setInfoUser({ name, about, jwt }) {
+    setInfoUser({ name, about }) {
         return fetch(`${this._url}/users/me`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${jwt.token}`,
-            },
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PATCH',
             body: JSON.stringify({
                 name: name,
@@ -49,12 +49,12 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    createNewCard(item, jwt) {
+    createNewCard(item) {
         return fetch(`${this._url}/cards`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${jwt.token}`,
-            },
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'POST',
             body: JSON.stringify({
                 name: item.name,
@@ -64,45 +64,45 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    deleteCard(cardId, jwt) {
+    deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${jwt.token}`,
-            },
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'DELETE',
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    setLikes(cardId, jwt) {
+    setLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${jwt.token}`,
-            },
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PUT'
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    deleteLikes(cardId, jwt) {
+    deleteLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${jwt.token}`,
-            },
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'DELETE'
         })
             .then(res => this._checkStatusRes(res))
     }
 
-    setUserAvatar(newAvatarLink, jwt) {
+    setUserAvatar(newAvatarLink) {
         return fetch(`${this._url}/users/me/avatar`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${jwt.token}`,
-            },
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PATCH',
             body: JSON.stringify({
                 avatar: newAvatarLink,
@@ -111,12 +111,12 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    changeLikeCardStatus(isLiked, cardId, jwt) {
+    changeLikeCardStatus(isLiked, cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${jwt.token}`,
-            },
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: isLiked ? 'DELETE' : 'PUT'
         })
             .then(res => this._checkStatusRes(res))
