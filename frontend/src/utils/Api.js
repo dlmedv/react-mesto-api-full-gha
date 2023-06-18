@@ -16,21 +16,30 @@ export default class Api {
 
     getInitialCards() {
         return fetch(`${this._url}/cards`, {
-            headers: this._headers
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
         })
             .then(res => this._checkStatusRes(res))
     }
 
     getUserInfo() {
         return fetch(`${this._url}/users/me`, {
-            headers: this._headers
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
         })
             .then(res => this._checkStatusRes(res))
     }
 
     setInfoUser({ name, about }) {
         return fetch(`${this._url}/users/me`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PATCH',
             body: JSON.stringify({
                 name: name,
@@ -42,7 +51,10 @@ export default class Api {
 
     createNewCard(item) {
         return fetch(`${this._url}/cards`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'POST',
             body: JSON.stringify({
                 name: item.name,
@@ -54,7 +66,10 @@ export default class Api {
 
     deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'DELETE',
         })
             .then(res => this._checkStatusRes(res))
@@ -62,7 +77,10 @@ export default class Api {
 
     setLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PUT'
         })
             .then(res => this._checkStatusRes(res))
@@ -70,7 +88,10 @@ export default class Api {
 
     deleteLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'DELETE'
         })
             .then(res => this._checkStatusRes(res))
@@ -78,7 +99,10 @@ export default class Api {
 
     setUserAvatar(newAvatarLink) {
         return fetch(`${this._url}/users/me/avatar`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PATCH',
             body: JSON.stringify({
                 avatar: newAvatarLink,
@@ -89,7 +113,10 @@ export default class Api {
 
     changeLikeCardStatus(isLiked, cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: isLiked ? 'DELETE' : 'PUT'
         })
             .then(res => this._checkStatusRes(res))
