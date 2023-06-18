@@ -66,7 +66,10 @@ export default class Api {
 
     deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'DELETE',
         })
             .then(res => this._checkStatusRes(res))
@@ -74,7 +77,10 @@ export default class Api {
 
     setLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PUT'
         })
             .then(res => this._checkStatusRes(res))
@@ -82,7 +88,10 @@ export default class Api {
 
     deleteLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'DELETE'
         })
             .then(res => this._checkStatusRes(res))
