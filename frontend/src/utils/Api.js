@@ -4,7 +4,7 @@ import { options } from '../utils/utils.js'
 export default class Api {
     constructor(options) {
         this._url = options.url;
-        //this._headers = options.headers;
+        this._headers = options.headers;
     }
 
     _checkStatusRes(res) {
@@ -15,35 +15,31 @@ export default class Api {
     }
 
     getInitialCards() {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards`, {
-            credentials: 'include',
-      headers: { 
-        authorization: `Bearer ${token}`,
-      },
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
         })
             .then(res => this._checkStatusRes(res))
     }
 
     getUserInfo() {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/users/me`, {
-            credentials: 'include',
-      headers: { 
-        authorization: `Bearer ${token}`,
-      },
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
         })
             .then(res => this._checkStatusRes(res))
     }
 
     setInfoUser({ name, about }) {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/users/me`, {
-            credentials: 'include',
-            headers: { 
-              authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PATCH',
             body: JSON.stringify({
                 name: name,
@@ -54,13 +50,11 @@ export default class Api {
     }
 
     createNewCard(item) {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards`, {
-            credentials: 'include',
-            headers: { 
-              authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'POST',
             body: JSON.stringify({
                 name: item.name,
@@ -71,49 +65,35 @@ export default class Api {
     }
 
     deleteCard(cardId) {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}`, {
-            credentials: 'include',
-            headers: { 
-                authorization: `Bearer ${token}`,
-              },
+            headers: this._headers,
             method: 'DELETE',
         })
             .then(res => this._checkStatusRes(res))
     }
 
     setLikes(cardId) {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            credentials: 'include',
-            headers: { 
-                authorization: `Bearer ${token}`,
-              },
+            headers: this._headers,
             method: 'PUT'
         })
             .then(res => this._checkStatusRes(res))
     }
 
     deleteLikes(cardId) {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            credentials: 'include',
-            headers: { 
-                authorization: `Bearer ${token}`,
-              },
+            headers: this._headers,
             method: 'DELETE'
         })
             .then(res => this._checkStatusRes(res))
     }
 
     setUserAvatar(newAvatarLink) {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/users/me/avatar`, {
-            credentials: 'include',
-            headers: { 
-                authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: 'PATCH',
             body: JSON.stringify({
                 avatar: newAvatarLink,
@@ -123,12 +103,11 @@ export default class Api {
     }
 
     changeLikeCardStatus(isLiked, cardId) {
-        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            credentials: 'include',
-      headers: { 
-        authorization: `Bearer ${token}`,
-      },
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: isLiked ? 'DELETE' : 'PUT'
         })
             .then(res => this._checkStatusRes(res))
