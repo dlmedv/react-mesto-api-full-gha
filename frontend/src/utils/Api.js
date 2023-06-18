@@ -4,7 +4,7 @@ import { options } from '../utils/utils.js'
 export default class Api {
     constructor(options) {
         this._url = options.url;
-        this._headers = options.headers;
+        //this._headers = options.headers;
     }
 
     _checkStatusRes(res) {
@@ -15,31 +15,35 @@ export default class Api {
     }
 
     getInitialCards() {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+      headers: { 
+        authorization: `Bearer ${token}`,
+      },
         })
             .then(res => this._checkStatusRes(res))
     }
 
     getUserInfo() {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/users/me`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+      headers: { 
+        authorization: `Bearer ${token}`,
+      },
         })
             .then(res => this._checkStatusRes(res))
     }
 
     setInfoUser({ name, about }) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/users/me`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+            headers: { 
+              authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
             method: 'PATCH',
             body: JSON.stringify({
                 name: name,
@@ -50,11 +54,13 @@ export default class Api {
     }
 
     createNewCard(item) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+            headers: { 
+              authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
             method: 'POST',
             body: JSON.stringify({
                 name: item.name,
@@ -65,44 +71,49 @@ export default class Api {
     }
 
     deleteCard(cardId) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+            headers: { 
+                authorization: `Bearer ${token}`,
+              },
             method: 'DELETE',
         })
             .then(res => this._checkStatusRes(res))
     }
 
     setLikes(cardId) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+            headers: { 
+                authorization: `Bearer ${token}`,
+              },
             method: 'PUT'
         })
             .then(res => this._checkStatusRes(res))
     }
 
     deleteLikes(cardId) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+            headers: { 
+                authorization: `Bearer ${token}`,
+              },
             method: 'DELETE'
         })
             .then(res => this._checkStatusRes(res))
     }
 
     setUserAvatar(newAvatarLink) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/users/me/avatar`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+            headers: { 
+                authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
             method: 'PATCH',
             body: JSON.stringify({
                 avatar: newAvatarLink,
@@ -112,11 +123,12 @@ export default class Api {
     }
 
     changeLikeCardStatus(isLiked, cardId) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
+            credentials: 'include',
+      headers: { 
+        authorization: `Bearer ${token}`,
+      },
             method: isLiked ? 'DELETE' : 'PUT'
         })
             .then(res => this._checkStatusRes(res))
