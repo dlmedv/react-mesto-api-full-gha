@@ -77,9 +77,9 @@ function App() {
         const isLiked = card.likes.some((i) => i === currentUser._id);
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(isLiked, card._id)
+        api.changeLikeCardStatus(isLiked, card.id)
             .then((newCard) => {
-                setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+                setCards((state) => state.map((c) => c._id === card.id ? newCard : c));
             })
             .catch((err) => {
                 console.log(err);
