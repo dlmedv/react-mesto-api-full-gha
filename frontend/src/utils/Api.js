@@ -75,7 +75,7 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    _setLikes(cardId) {
+    setLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             headers: {
 				...this._headers,
@@ -86,7 +86,7 @@ export default class Api {
             .then(res => this._checkStatusRes(res))
     }
 
-    _deleteLikes(cardId) {
+    deleteLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             headers: {
 				...this._headers,
