@@ -112,15 +112,29 @@ export default class Api {
     }
 
     changeLikeCardStatus(isLiked, cardId) {
-        return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: {
-				...this._headers,
-				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-			},
-            method: isLiked ? 'DELETE' : 'PUT'
-        })
-            .then(res => this._checkStatusRes(res))
+        if (isLiked) {
+            return fetch(`${this._url}/cards/${cardId}/likes`,
+              {
+                method: 'PUT',
+                headers: {
+                    ...this._headers,
+                    Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                },
+              })
+              .then(res => this._checkStatusRes(res))
+          } else {
+            return fetch(`${this._url}/cards/${cardId}/likes`,
+              {
+                method: 'DELETE',
+                headers: {
+                    ...this._headers,
+                    Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                },
+              })
+              .then(res => this._checkStatusRes(res))
+          }
     }
 }
 
 export const api = new Api(options)
+
