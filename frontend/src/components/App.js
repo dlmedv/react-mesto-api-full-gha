@@ -134,7 +134,7 @@ function App() {
     const registerUser = ({ email, password }) => {
         auth.register(email, password)
             .then((res) => {
-                setUserEmail(res.data.email)
+                setUserEmail(res.email)
                 navigate('/sign-in', { replace: true })
                 setInfoTooltipState({ isOpen: true, status: true })
             })
