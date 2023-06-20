@@ -113,7 +113,10 @@ export default class Api {
 
     changeLikeCardStatus(isLiked, cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            headers: this._headers,
+            headers: {
+				...this._headers,
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
             method: isLiked ? 'DELETE' : 'PUT'
         })
             .then(res => this._checkStatusRes(res))
