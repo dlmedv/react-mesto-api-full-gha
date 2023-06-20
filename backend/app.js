@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
@@ -19,6 +20,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {});
 
 app.use(helmet());
 app.use(express.json());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', validateSignIn, usersController.loginUser);
 app.post('/signup', validateSignUp, usersController.createUser);
