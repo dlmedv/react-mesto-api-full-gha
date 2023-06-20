@@ -138,8 +138,9 @@ function App() {
                 navigate('/sign-in', { replace: true })
                 setInfoTooltipState({ isOpen: true, status: true })
             })
-            .catch(() => setInfoTooltipState({ isOpen: true, status: false }))
-            .catch((err) => console.log(err))
+            .catch((err) => {
+            console.log(err)
+            setInfoTooltipState({ isOpen: true, status: false })})
     }
 
     const loginUser = ({ email, password }) => {
