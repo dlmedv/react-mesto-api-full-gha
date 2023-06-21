@@ -11,7 +11,7 @@ const usersController = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const errorMiddlewares = require('./middlewares/errorMiddlewares');
 const { validateSignIn, validateSignUp } = require('./middlewares/validations');
-
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
 app.use(cors());
@@ -20,6 +20,7 @@ mongoose.connect(DB_ADDRESS, {});
 
 app.use(helmet());
 app.use(express.json());
+app.use(requestLogger);
 
 app.post('/signin', validateSignIn, usersController.loginUser);
 app.post('/signup', validateSignUp, usersController.createUser);
@@ -30,6 +31,7 @@ app.use(cardsRouter);
 
 app.use('*', (req, res, next) => next(new NotFound('По этому адресу ничего нет')));
 
+app.use(errorLogger);
 app.use(errors());
 app.use(errorMiddlewares);
 
