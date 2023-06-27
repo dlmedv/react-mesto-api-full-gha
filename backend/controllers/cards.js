@@ -4,7 +4,7 @@ const BadRequest = require('../errors/Conflict');
 const NotFound = require('../errors/NotFound');
 
 const getCards = (req, res, next) => {
-  cardsModel.find({}).then((cards) => res.send(cards))
+  cardsModel.find({}).sort({ createdAt: -1 }).then((cards) => res.send(cards))
     .catch(next);
 };
 
@@ -14,9 +14,9 @@ const createCard = (req, res, next) => {
     .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequest('Переданы некорректные данные'));
+        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
       }
-      return next(new Error(err.message));
+      return next(err);
     });
 };
 
@@ -35,8 +35,8 @@ const deleteCard = (req, res, next) => {
         .catch(next);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        return next(new BadRequest('Введены некорректные данные'));
+      if (err.name === 'CastError') {
+        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
       }
       return next(err);
     });
