@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 62.84.126.226
 
 Frontend https://dlmedvmesto.nomoredomains.rocks;
 
