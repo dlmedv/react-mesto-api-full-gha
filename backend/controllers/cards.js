@@ -14,7 +14,7 @@ const createCard = (req, res, next) => {
     .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
+        return next(new BadRequest('Переданы некорректные данные'));
       }
       return next(err);
     });
@@ -36,7 +36,7 @@ const deleteCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
+        return next(new BadRequest('Передан некорректный Id'));
       }
       return next(err);
     });

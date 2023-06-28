@@ -21,7 +21,7 @@ const getUserById = (req, res, next) => {
     // eslint-disable-next-line consistent-return
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
+        return next(new BadRequest('Передан некорректный Id'));
       }
       return next(err);
     });
@@ -35,7 +35,7 @@ const getMyUser = (req, res, next) => {
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
+        return next(new BadRequest('Передан некорректный Id'));
       }
       return next(err);
     });
@@ -59,7 +59,7 @@ const createUser = (req, res, next) => {
         }))
         .catch((err) => {
           if (err.name === 'ValidationError') {
-            next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
+            next(new BadRequest('Переданы некорректные данные'));
           } else if (err.code === 11000) {
             return next(new Conflict('Пользователь с таким Email уже существует'));
           }
@@ -102,7 +102,7 @@ const updateAvatar = (req, res, next) => {
     .then((avatarUser) => res.send(avatarUser))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
+        return next(new BadRequest('Переданы некорректные данные'));
       }
       return next(new Error(err.message));
     });
@@ -118,7 +118,7 @@ const updateUser = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
+        return next(new BadRequest('Переданы некорректные данные'));
       }
       return next(new Error(err.message));
     });
