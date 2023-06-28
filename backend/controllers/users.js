@@ -21,7 +21,7 @@ const getUserById = (req, res, next) => {
     // eslint-disable-next-line consistent-return
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequest('Передан некорректный Id'));
+        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
       }
       return next(err);
     });
@@ -35,7 +35,7 @@ const getMyUser = (req, res, next) => {
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequest('Передан некорректный Id'));
+        return next(new BadRequest('Переданы некорректные данные для получения данных пользователя'));
       }
       return next(err);
     });
